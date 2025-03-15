@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Machinery Rental - Clear Agreements</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1563299796-176c13f9b7c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaH0tdC1wYWdlfHx8fGVufDB8fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        nav {
+            display: inline-block;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 6px;
+            background-color: rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .hero {
+            background-color: #e6f7ff;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            margin: 40px auto;
+            max-width: 900px;
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hero button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .machines-section {
+            text-align: center;
+        }
+
+        .machine {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin: 1rem;
+            display: inline-block;
+            background-color: white;
+        }
+
+        .machine p{
+            color:#333;
+            margin-top: 5px;
+        }
+
+        .clickable-machine {
+            cursor: pointer;
+        }
+
+        #hideMachines {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+
+        #hideMachines:hover {
+            background-color: #45a049;
+        }
+
+        #machine-form-container form {
+            width: 300px;
+            margin: 20px auto;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        #machine-form-container label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        #machine-form-container input,
+        #machine-form-container textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            color: #333;
+        }
+
+        #machine-form-container input::placeholder,
+        #machine-form-container textarea::placeholder {
+            color: #777;
+        }
+
+        #machine-form-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .rules-section {
+            background-color: #f0f8ff;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .rules-section h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        .rules-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules-section li {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            background-color: #f0f8ff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            color:#333;
+        }
+
+        .rules-section li:hover {
+            transform: translateY(-5px);
+        }
+
+        .rules-section li strong {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        .rules-section li p {
+            margin-top: 8px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .contact {
+            background-color: #f0f8ff;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 28px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        .contact p {
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        .contact p strong {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: #d0d0d0;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .language-icons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .language-icons img {
+            width: 30px;
+            height: 20px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .skiptranslate {
+            display: none !important;
+        }
+
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+
+        body {
+            top: 0px !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Agriculture Machinery Rental - Clear Agreements</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#machines">Machines</a>
+            <a href="#rules">Rules & Agreements</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div id="google_translate_element"></div>
+        <div class="language-icons">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/1280px-Flag_of_the_United_States.svg.png" alt="English" data-lang="en">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_India.svg/800px-Flag_of_India.svg.png" alt="Hindi" data-lang="hi">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/1280px-Flag_of_Spain.svg.png" alt="Spanish" data-lang="es">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/1280px-Flag_of_France.svg.png" alt="French" data-lang="fr">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/1280px-Flag_of_Germany.svg.png" alt="German" data-lang="de">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/1280px-Flag_of_Japan.svg.png" alt="Japanese" data-lang="ja">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/1280px-Flag_of_the_People%27s_Republic_of_China.svg.png" alt="Chinese" data-lang="zh-CN">
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h2>Rent with Confidence - Clear Rules, No Disputes</h2>
+            <p>We provide transparent rental agreements for your peace of mind.</p>
+            <button id="showMachines">View Machines</button>
+        </section>
+
+        <section id="machines" class="machines-section" style="display: none;">
+            <h2>Available Machines</h2>
+            <div class="machine clickable-machine" data-machine="Tractor">
+                <h3>Tractor</h3>
+                <p>Powerful tractor for various farm tasks.</p>
+                <p>Rental Price: ₹ 5,000 per day</p>
+                <img src="tractor1.jpeg" alt="Tractor" width="200">
+            </div>
+            <div class="machine clickable-machine" data-machine="Harvester">
+                <h3>Harvester</h3>
+                <p>Efficient harvester for crop harvesting.</p>
+                <p>Rental Price: ₹ 8,000 per day</p>
+                <img src="harvestor.jpeg" alt="Harvester" width="350">
+            </div>
+            <div class="machine clickable-machine" data-machine="Planter">
+                <h3>Planter</h3>
+                <p>Precise planter for seed sowing.</p>
+                <p>Rental Price: ₹ 3,000 per day</p>
+                <img src="planter.jpeg" alt="Planter" width="200">
+            </div>
+
+            <button id="hideMachines">Hide Machines</button>
+            <div id="machine-form-container"></div>
+        </section>
+
+        <section id="rules" class="rules-section">
+            <h2>Rental Rules and Agreements</h2>
+            <ul>
+                <li><strong>Clear Contracts:</strong> All rental agreements are written in plain language.</li>
+                <li><strong>Equipment Inspection:</strong> Equipment is inspected before and after each rental.</li>
+                <li><strong>Usage Guidelines:</strong> Detailed guidelines are provided to ensure safe and proper use.</li>
+                <li><strong>Damage Policy:</strong> Clear policies regarding damage and liability.</li>
+                <li><strong>Payment Terms:</strong> Transparent payment terms and conditions.</li>
+                <li><strong>Dispute Resolution:</strong> A fair and efficient process for resolving any disputes.</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Contact Us</h2>
+            <p>Email: info@agrimachinery.com</p>
+            <p>Phone: 123-456-7890</p>
+            <p>Location: Sangli, Maharashtra, India</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Agriculture Machinery Rental - Clear Agreements</p>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+                includedLanguages: 'en,hi,es,fr,de,ja,zh-CN'
+            }, 'google_translate_element');
+
+            document.querySelectorAll('.language-icons img').forEach(img => {
+                img.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    doGTranslate('en|' + lang);
+                });
+            });
+        }
+
+        function doGTranslate(lang_pair) {
+            if (lang_pair.value) lang_pair = lang_pair.value;
+            if (lang_pair == '') return;
+            var lang = lang_pair.split('|')[1];
+            var teCombo = document.querySelector('.goog-te-combo');
+            if (teCombo) {
+                teCombo.value = lang;
+                teCombo.dispatchEvent(new Event('change'));
+            } else {
+                setTimeout(function() {
+                    doGTranslate(lang_pair);
+                }, 500);
+            }
+        }
+
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const showMachinesButton = document.getElementById('showMachines');
+            const machinesSection = document.getElementById('machines');
+            const hideMachinesButton = document.getElementById('hideMachines');
+
+            showMachinesButton.addEventListener('click', function() {
+                machinesSection.style.display = 'block';
+            });
+
+            hideMachinesButton.addEventListener('click', function() {
+                machinesSection.style.display = 'none';
+            });
+
+            const machineFormContainer = document.getElementById('machine-form-container');
+            const clickableMachines = document.querySelectorAll('.clickable-machine');
+
+            clickableMachines.forEach(machine => {
+                machine.addEventListener('click', function() {
+                    const machineName = this.dataset.machine;
+                    const formHtml = `
+                        <h2>Rental Request - ${machineName}</h2>
+                        <form id="rental-form" action="https://formspree.io/f/myzezybo" method="POST">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required><br><br>
+
+                            <label for="phone">Phone:</label>
+                            <input type="tel" id="phone" name="phone" required><br><br>
+
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required><br><br>
+
+                            <label for="start-date">Start Date:</label>
+                            <input type="date" id="start-date" name="start-date" required><br><br>
+
+                            <label for="end-date">End Date:</label>
+                            <input type="date" id="end-date" name="end-date" required><br><br>
+
+                            <label for="address">Address:</label>
+                            <textarea id="address" name="address" required></textarea><br><br>
+
+                            <button type="submit">Submit Request</button>
+                        </form>`;
+
+                    machineFormContainer.innerHTML = formHtml;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

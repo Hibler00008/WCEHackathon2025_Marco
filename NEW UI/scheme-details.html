@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Agriculture Schemes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="icon photo.jpeg">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #d4edda, #ffffff); /* Light Green Gradient */
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header img {
+            width: 60px;
+        }
+
+        h1 {
+            color: darkgreen;
+            background: #a5d6a7; /* Light green header */
+            padding: 10px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .search-bar input {
+            width: 80%;
+            padding: 10px;
+            border: 2px solid darkgreen;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .category-buttons button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: darkgreen;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .category-buttons button:hover {
+            background-color: white;
+            color: darkgreen;
+        }
+
+        .scheme-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .scheme-item {
+            background: yellow;
+            padding: 15px;
+            border-radius: 20px;
+            width: 300px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .scheme-item h3 {
+            color: darkgreen;
+        }
+
+        .scheme-item a {
+            text-decoration: none;
+            color: darkblue;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 30px;
+            background: darkgreen;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .footer a {
+            color: yellow;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        #google_translate_element {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag">
+        <h1>Government Agriculture Schemes</h1>
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag">
+        <div id="google_translate_element"></div>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search schemes...">
+    </div>
+
+    <div class="category-buttons">
+        <button onclick="filterSchemes('Irrigation')">Irrigation</button>
+        <button onclick="filterSchemes('Subsidies')">Subsidies</button>
+        <button onclick="filterSchemes('Crop Insurance')">Crop Insurance</button>
+        <button onclick="filterSchemes('Technology')">Technology</button>
+        <button onclick="filterSchemes('Marketing')">Marketing</button>
+        <button onclick="showAllSchemes()">All Schemes</button>
+    </div>
+
+    <div class="scheme-section" id="filtered-schemes"></div>
+
+    <div class="footer">
+        <p>Useful Links:</p>
+        <a href="https://agricoop.nic.in/" target="_blank">Ministry of Agriculture & Farmers Welfare</a>
+    </div>
+
+    <script>
+        const schemes = {
+            "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)": { category: "Subsidies", details: "Provides income support.", link: "https://pmkisan.gov.in/"},
+            "Pradhan Mantri Fasal Bima Yojana (PMFBY)": { category: "Crop Insurance", details: "Crop insurance against losses.", link: "https://pmfby.gov.in/"},
+            "Per Drop More Crop": { category: "Irrigation", details: "Micro irrigation scheme.", link: "https://pmksy.gov.in/microirrigation.aspx"},
+            "National Food Security Mission": { category: "Subsidies", details: "Increases food production.", link: "https://nfsm.gov.in/"},
+            "Soil Health Card Scheme": { category: "Technology", details: "Soil testing and recommendations.", link: "https://soilhealth.dac.gov.in/"},
+            "e-NAM (National Agriculture Market)": { category: "Marketing", details: "Online trading platform.", link: "https://enam.gov.in/web/"},
+            "Kisan Credit Card (KCC)": { category: "Subsidies", details: "Provides credit to farmers.", link: "https://agricoop.nic.in/en/programmes-schemes/kisan-credit-card-kcc"},
+            "Weather Based Crop Insurance Scheme (WBCIS)": { category: "Crop Insurance", details: "Insurance based on weather parameters.", link: "https://pmfby.gov.in/wbcis"},
+            "Pradhan Mantri Krishi Sinchayee Yojana (PMKSY)": { category: "Irrigation", details: "End to end irrigation solutions.", link: "https://pmksy.gov.in/"},
+            "Sub-Mission on Agricultural Mechanization (SMAM)": { category: "Technology", details: "Provides subsidies on farm machinery.", link: "https://agricoop.nic.in/en/programmes-schemes/sub-mission-agricultural-mechanization-smam"},
+            "Mission for Integrated Development of Horticulture (MIDH)": { category: "Marketing", details: "Promotes horticulture development.", link: "https://midh.gov.in/"},
+            "Paramparagat Krishi Vikas Yojana (PKVY)": { category: "Subsidies", details: "Promotes organic farming.", link: "https://pgsindia-ncof.gov.in/pkvy.aspx"},
+            "Restructured Weather Based Crop Insurance Scheme (RWBCIS)": { category: "Crop Insurance", details: "Improved weather insurance.", link: "https://pmfby.gov.in/rwbcis"},
+            "Command Area Development and Water Management (CADWM)": { category: "Irrigation", details: "Improves irrigation efficiency.", link: "https://dolr.gov.in/command-area-development-water-management-cadwm"},
+            "National Mission on Sustainable Agriculture (NMSA)": { category: "Technology", details: "Promotes sustainable agricultural practices.", link: "https://nmsa.dac.gov.in/"},
+            "Agricultural Marketing Infrastructure (AMI)": { category: "Marketing", details: "Develops marketing infrastructure.", link: "https://agmarknet.gov.in/ami.htm"}
+        };
+
+        function filterSchemes(category) {
+            displaySchemes(Object.keys(schemes).filter(name => schemes[name].category === category));
+        }
+
+        function showAllSchemes() {
+            displaySchemes(Object.keys(schemes));
+        }
+
+        function displaySchemes(schemeNames) {
+            const section = document.getElementById("filtered-schemes");
+            section.innerHTML = "";
+            schemeNames.forEach(name => {
+                const div = document.createElement("div");
+                div.classList.add("scheme-item");
+                div.innerHTML = `<h3>${name}</h3><ul><li>${schemes[name].details}</li><li><a href="${schemes[name].link}" target="_blank">Official Link</a></li></ul>`;
+                section.appendChild(div);
+            });
+        }
+        
+
+        showAllSchemes();
+
+    </script>
+
+</body>
+</html>

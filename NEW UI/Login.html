@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login with API</title>
+</head>
+<body>
+    <div id="login-section">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <div id="dashboard" style="display: none;">
+        <h2>Welcome <span id="username-display"></span></h2>
+        <button onclick="logout()">Logout</button>
+        <button onclick="getProtectedData()">Get Protected Data</button>
+        <div id="data-container"></div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const messageDiv = document.getElementById('message');
+        const dashboard = document.getElementById('dashboard');
+        const loginSection = document.getElementById('login-section');
+
+        // Login handler
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                    credentials: 'include' // Important for cookies
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    showDashboard(data.userId);
+                } else {
+                    const error = await response.text();
+                    showMessage(error, 'red');
+                }
+            } catch (err) {
+                showMessage('Network error: ' + err.message, 'red');
+            }
+        });
+
+        // Logout handler
+        async function logout() {
+            try {
+                const response = await fetch('/logout', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    loginSection.style.display = 'block';
+                    dashboard.style.display = 'none';
+                    showMessage('Logged out successfully', 'green');
+                }
+            } catch (err) {
+                showMessage('Logout failed: ' + err.message, 'red');
+            }
+        }
+
+        // Example protected API call
+        async function getProtectedData() {
+            try {
+                const response = await fetch('/dashboard', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.text();
+                    document.getElementById('data-container').innerHTML = data;
+                }
+            } catch (err) {
+                showMessage('Failed to fetch data: ' + err.message, 'red');
+            }
+        }
+
+        function showDashboard(userId) {
+            loginSection.style.display = 'none';
+            dashboard.style.display = 'block';
+            document.getElementById('username-display').textContent = `User ${userId}`;
+            showMessage('Login successful!', 'green');
+        }
+
+        function showMessage(text, color) {
+            messageDiv.textContent = text;
+            messageDiv.style.color = color;
+            setTimeout(() => messageDiv.textContent = '', 3000);
+        }
+
+        // Check login status on page load
+        (async function checkAuth() {
+            try {
+                const response = await fetch('/dashboard', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const userId = await response.text();
+                    showDashboard(userId.match(/\d+/)[0]);
+                }
+            } catch (err) {
+                // Not logged in
+            }
+        })();
+    </script>
+</body>
+</html>
