@@ -1,0 +1,22 @@
+/*Google Analytics added bt Ankit Sahay on 12/07/2018 Start*/
+
+/* Global site tag (gtag.js) - Google Analytics */
+
+var script = document.createElement('script');
+script.onload = function() {
+  console.log("Analytics Script loaded and ready");
+};
+script.src = "https://www.googletagmanager.com/gtag/js?id=UA-26415849-2";
+document.getElementsByTagName('head')[0].appendChild(script);
+
+
+/*<script async src=" https://www.googletagmanager.com/gtag/js?id=UA-26415849-2"></script>*/
+
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-26415849-2');
+
+/*Google Analytics added bt Ankit Sahay on 12/07/2018 Stop*/
